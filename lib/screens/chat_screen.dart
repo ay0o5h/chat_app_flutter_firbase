@@ -5,12 +5,28 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('Chat'), actions: [
+        DropdownButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Theme.of(context).primaryIconTheme.color,
+            ), // Icon
+            items: [
+              DropdownMenuItem(
+                  child: Row(children: const [
+                    Icon(Icons.exit_to_app),
+                    SizedBox(width: 8),
+                    Text('Logout'),
+                  ]),
+                  value: 'logout'),
+            ],
+            onChanged: null)
+      ]),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('chats/aVcSH0jFv2L4mMib9Oh6/messages')
             .snapshots(),
-        builder: (ctx, snapshot) {
+        builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
           }
