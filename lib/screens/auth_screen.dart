@@ -12,20 +12,20 @@ class authScreen extends StatefulWidget {
 
 class _authScreenState extends State<authScreen> {
   final _auth = FirebaseAuth.instance;
-  late UserCredential _authResult;
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       backgroundColor: Theme.of(context).primaryColor,
       body: authForm(submitAuthForm, isLoading),
     );
   }
 
-  void submitAuthForm(String email, String password, String username,
+  Future<void> submitAuthForm(String email, String password, String username,
       bool islogin, BuildContext ctx) async {
+    UserCredential _authResult;
+
     try {
       setState(() {
         isLoading = true;
@@ -48,7 +48,7 @@ class _authScreenState extends State<authScreen> {
     } on FirebaseAuthException catch (e) {
       String nessage = 'error Occerd';
       if (e.code == 'weak-password') {
-        nessage = 'The password provided is too weak. ';
+        nessage = 'The password provided is too weak';
       } else if (e.code == 'email-already-in-use') {
         nessage = 'The account already exists for that enail.';
       } else if (e.code == 'user-not-found') {

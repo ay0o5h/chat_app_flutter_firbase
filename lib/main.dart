@@ -7,7 +7,15 @@ import 'screens/chat_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "XXX",
+      appId: "1:178290825349:android:9a386bb773823c29e2b1ec",
+      messagingSenderId: "AIzaSyBIVRA4AvntMiKP5O91KxrzrQlys2zF7HY",
+      projectId: "chatapp-3f6d7",
+    ),
+  );
+
   runApp(MyApp());
 }
 

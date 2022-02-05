@@ -100,7 +100,7 @@ class _authFormState extends State<authForm> {
     if (isvalid) {
       formkey.currentState?.save();
       widget.submitAuthForm(
-          email.trim(), password.trim(), username.trim(), islogin, context);
+          email.trim(), password, username.trim(), islogin, context);
     }
   }
 }
