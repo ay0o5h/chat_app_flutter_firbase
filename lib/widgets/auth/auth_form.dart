@@ -61,7 +61,7 @@ class _authFormState extends State<authForm> {
                   }
                   return null;
                 },
-                onSaved: (val) => username = val!,
+                onSaved: (val) => password = val!,
                 decoration:
                     const InputDecoration(labelText: 'password Address'),
                 obscureText: true,
@@ -99,6 +99,10 @@ class _authFormState extends State<authForm> {
     FocusScope.of(context).unfocus();
     if (isvalid) {
       formkey.currentState?.save();
+      print('email $email');
+      print('password $password');
+      print('username $username');
+
       widget.submitAuthForm(
           email.trim(), password, username.trim(), islogin, context);
     }

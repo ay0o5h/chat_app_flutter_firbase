@@ -9,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: FirebaseOptions(
-      apiKey: "XXX",
+      apiKey: "AIzaSyBIVRA4AvntMiKP5O91KxrzrQlys2zF7HY",
       appId: "1:178290825349:android:9a386bb773823c29e2b1ec",
       messagingSenderId: "AIzaSyBIVRA4AvntMiKP5O91KxrzrQlys2zF7HY",
       projectId: "chatapp-3f6d7",

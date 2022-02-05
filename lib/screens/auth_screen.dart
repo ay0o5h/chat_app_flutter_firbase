@@ -46,6 +46,7 @@ class _authScreenState extends State<authScreen> {
             .set({'username': username, 'password': password});
       }
     } on FirebaseAuthException catch (e) {
+      print(e);
       String nessage = 'error Occerd';
       if (e.code == 'weak-password') {
         nessage = 'The password provided is too weak';
