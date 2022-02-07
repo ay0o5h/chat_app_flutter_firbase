@@ -4,11 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
+  const ChatScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(title: const Text('Chat'), actions: [
         DropdownButton(
+            underline: Container(),
             icon: Icon(
               Icons.more_vert,
               color: Theme.of(context).primaryIconTheme.color,
@@ -29,10 +33,12 @@ class ChatScreen extends StatelessWidget {
             }),
       ]),
       body: Container(
+          color: Colors.white,
+          // height: 500,
           child: Column(children: const [
-        Expanded(child: message()),
-        new_messages(),
-      ])),
+            Expanded(child: message()),
+            new_messages(),
+          ])),
     ); // Scaffold
   }
 }

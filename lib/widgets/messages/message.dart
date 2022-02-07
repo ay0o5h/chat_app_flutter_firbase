@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'message_bubble.dart';
 
 class message extends StatelessWidget {
   const message({Key? key}) : super(key: key);
@@ -16,12 +19,16 @@ class message extends StatelessWidget {
           return const CircularProgressIndicator();
         }
         final docs = snapshot.data!.docs;
+        final user = FirebaseAuth.instance.currentUser;
         return ListView.builder(
           reverse: true,
           itemCount: 10,
-          itemBuilder: (ctx, index) => Container(
-            padding: const EdgeInsets.all(8),
-            child: Text(docs[index]['text']),
+          itemBuilder: (ctx, index) => MessageBubble(
+            docs[index]['text'],
+            docs[index]['username'],
+            docs[index]['image_url'],
+            docs[index]['userId'] == user!.uid,
+            key: ValueKey(docs[index]['userId']),
           ),
         );
       },

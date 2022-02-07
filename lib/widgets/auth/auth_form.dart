@@ -1,8 +1,11 @@
+import 'dart:io';
+
+import 'package:chat_app/widgets/auth/userImagePicker.dart';
 import 'package:flutter/material.dart';
 
 class authForm extends StatefulWidget {
   final void Function(String email, String password, String username,
-      bool islogin, BuildContext ctx) submitAuthForm;
+      File userImageFile, bool islogin, BuildContext ctx) submitAuthForm;
   final bool isLoading;
   const authForm(this.submitAuthForm, this.isLoading);
 
@@ -16,6 +19,8 @@ class _authFormState extends State<authForm> {
   String email = '';
   String password = '';
   String username = '';
+  late File userImageFile = File('');
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -26,7 +31,12 @@ class _authFormState extends State<authForm> {
           child: Form(
             key: formkey,
             child: Column(mainAxisSize: MainAxisSize.min, children: [
+              if (!islogin) UserImagePicker(pickedimage),
+
               TextFormField(
+                  autocorrect: false,
+                  enableSuggestions: false,
+                  textCapitalization: TextCapitalization.none,
                   key: const ValueKey('email'),
                   validator: (val) {
                     if (val!.isEmpty || !val.contains('@')) {
@@ -42,6 +52,9 @@ class _authFormState extends State<authForm> {
               // TextForefield
               if (!islogin) // TextFormField
                 TextFormField(
+                  autocorrect: true,
+                  enableSuggestions: false,
+                  textCapitalization: TextCapitalization.words,
                   key: const ValueKey('username'),
                   validator: (val) {
                     if (val!.isEmpty || val.length < 4) {
@@ -94,17 +107,29 @@ class _authFormState extends State<authForm> {
     ); // Center;
   }
 
+  void pickedimage(File pickedImage) {
+    userImageFile = pickedImage;
+  }
+
   void submit() {
     final isvalid = formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
+
+    if (!islogin && userImageFile == null) {
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: const Text('please pick an image'),
+        backgroundColor: Theme.of(context).errorColor,
+      ));
+      return;
+    }
     if (isvalid) {
       formkey.currentState?.save();
       print('email $email');
       print('password $password');
       print('username $username');
 
-      widget.submitAuthForm(
-          email.trim(), password, username.trim(), islogin, context);
+      widget.submitAuthForm(email.trim(), password, username.trim(),
+          userImageFile, islogin, context);
     }
   }
 }
