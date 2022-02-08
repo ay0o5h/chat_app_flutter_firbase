@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 class authForm extends StatefulWidget {
   final void Function(String email, String password, String username,
       File userImageFile, bool islogin, BuildContext ctx) submitAuthForm;
+  // final void Function(String email, String password, String username,
+  //     bool islogin, BuildContext ctx) submitAuthForm;
   final bool isLoading;
   const authForm(this.submitAuthForm, this.isLoading);
 
@@ -120,7 +122,7 @@ class _authFormState extends State<authForm> {
         content: const Text('please pick an image'),
         backgroundColor: Theme.of(context).errorColor,
       ));
-      return;
+      // return;
     }
     if (isvalid) {
       formkey.currentState?.save();
@@ -130,6 +132,8 @@ class _authFormState extends State<authForm> {
 
       widget.submitAuthForm(email.trim(), password, username.trim(),
           userImageFile, islogin, context);
+      // widget.submitAuthForm(
+      //     email.trim(), password, username.trim(), islogin, context);
     }
   }
 }

@@ -43,6 +43,7 @@ class _authScreenState extends State<authScreen> {
           email: email,
           password: password,
         );
+
         final ref = FirebaseStorage.instance
             .ref()
             .child('user_image')
@@ -55,6 +56,8 @@ class _authScreenState extends State<authScreen> {
             .doc(_authResult.user!.uid)
             .set(
                 {'username': username, 'password': password, 'image_url': url});
+        print('username signup $username');
+        // print('image_url signup $url');
       }
     } on FirebaseAuthException catch (e) {
       print(e);
